@@ -4,16 +4,19 @@
   ansible.builtin.file:
     path: /var/www/lighthouse
     state: directory
-    recurse: yes
+    recurse: true
     mode: '0755'
     owner: nginx
     group: nginx
+
 - name: Lighthouse | Clone from Git
   become: true
   ansible.builtin.git:
     repo: "{{ lighthouse_vcs }}"
     version: master
     dest: "{{ lighthouse_location_dir }}"
+    force: yes
+
 - name: Lighthouse | Create lighthouse config
   become: true
   ansible.builtin.template:
